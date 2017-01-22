@@ -10,16 +10,29 @@ class Spree::AdvancedReport::TopReport::TopProducts < Spree::AdvancedReport::Top
   def initialize(params, limit)
     super(params)
 
+
     orders.each do |order|
       order.line_items.each do |li|
         if !li.product.nil?
-          data[li.product.id] ||= {
-            :name => li.product.name.to_s,
-            :revenue => 0,
-            :units => 0
-          }
-          data[li.product.id][:revenue] += li.quantity*li.price
-          data[li.product.id][:units] += li.quantity
+          if !self.taxon.nil?
+            if li.product.taxons.include?(self.taxon)
+              data[li.product.id] ||= {
+                  :name => li.product.name.to_s,
+                  :revenue => 0,
+                  :units => 0
+              }
+              data[li.product.id][:revenue] += li.quantity*li.price
+              data[li.product.id][:units] += li.quantity
+            end
+          else
+            data[li.product.id] ||= {
+                :name => li.product.name.to_s,
+                :revenue => 0,
+                :units => 0
+            }
+            data[li.product.id][:revenue] += li.quantity*li.price
+            data[li.product.id][:units] += li.quantity
+          end
         end
       end
     end
