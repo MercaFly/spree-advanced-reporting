@@ -19,8 +19,12 @@ module Spree
 
       params[:search] ||= {}
       if params[:search][:completed_at_gt].blank?
-        if (Order.count > 0) && Order.minimum(:completed_at)
-          params[:search][:completed_at_gt] = Order.minimum(:completed_at).beginning_of_day
+        # if (Order.count > 0) && Order.minimum(:completed_at)
+        #   params[:search][:completed_at_gt] = Order.minimum(:completed_at).beginning_of_day
+        # end
+        #统计最近30天的
+        if (Order.count > 0) && Order.maximum(:completed_at)
+          params[:search][:completed_at_gt] = Order.maximum(:completed_at).end_of_day - 30.day
         end
       else
         params[:search][:completed_at_gt] = Time.zone.parse(params[:search][:completed_at_gt]).beginning_of_day rescue ""
