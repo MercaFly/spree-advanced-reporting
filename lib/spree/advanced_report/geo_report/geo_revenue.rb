@@ -17,25 +17,27 @@ class Spree::AdvancedReport::GeoReport::GeoRevenue < Spree::AdvancedReport::GeoR
     data = { :state => {}, :country => {} }
     orders.each do |order|
       revenue = revenue(order)
-      if order.bill_address.state
-        data[:state][order.bill_address.state_id] ||= {
-          :name => order.bill_address.state.name,
+      if order.ship_address && order.ship_address.state
+
+        data[:state][order.ship_address.state_id] ||= {
+          :name => order.ship_address.state.name,
+          :abbr => order.ship_address.state.abbr,
           :revenue => 0
         }
-        data[:state][order.bill_address.state_id][:revenue] += revenue
+        data[:state][order.ship_address.state_id][:revenue] += revenue
       end
-      if order.bill_address.country
-        data[:country][order.bill_address.country_id] ||= {
-          :name => order.bill_address.country.name,
+      if order.ship_address && order.ship_address.country
+        data[:country][order.ship_address.country_id] ||= {
+          :name => order.ship_address.country.name,
+          :abbr => order.ship_address.state.abbr,
           :revenue => 0
         }
-        data[:country][order.bill_address.country_id][:revenue] += revenue
+        data[:country][order.ship_address.country_id][:revenue] += revenue
       end
     end
-
     [:state, :country].each do |type|
-      ruportdata[type] = Table(%w[location Revenue])
-      data[type].each { |k, v| ruportdata[type] << { "location" => v[:name], "Revenue" => v[:revenue] } }
+      ruportdata[type] = Table(%w[location abbr Revenue])
+      data[type].each { |k, v| ruportdata[type] << { "location" => v[:name], 'abbr' => v[:abbr], "Revenue" => v[:revenue] } }
       ruportdata[type].sort_rows_by!(["Revenue"], :order => :descending)
       ruportdata[type].rename_column("location", type.to_s.capitalize)
       ruportdata[type].replace_column("Revenue") { |r| "$%0.2f" % r.Revenue }
