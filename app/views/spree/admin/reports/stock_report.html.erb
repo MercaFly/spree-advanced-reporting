@@ -1,0 +1,69 @@
+<% content_for :page_title do %>
+    Sale Details,
+    <% if params[:begin_date] && params[:end_date] %>
+        <%= params[:begin_date] %> to <%= params[:end_date] %>
+    <% else %>
+        <%= 1.month.ago.strftime('%m/%d/%Y') %> to <%= Time.now.strftime('%m/%d/%Y') %>
+    <% end %>
+<% end %>
+
+
+<h3><%= Spree.t(:date_range) %></h3>
+
+<%= form_tag({}, { method: :get, class: 'form-inline' }) do %>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <%= label_tag 'begin_date', t(:start), class: 'inline' %>
+          <%= text_field_tag 'begin_date',
+                             (Time.now - 1.month).beginning_of_day.strftime('%Y/%m/%d'),
+                             {
+                                 class: 'datepicker datepicker-from form-control',
+                                 required: true
+                             }
+          %>
+        </div>
+
+        <div class="form-group">
+          <%= label_tag 'end_date', t(:end), class: 'inline' %>
+          <%= text_field_tag 'end_date',
+                             Time.now.end_of_day.strftime('%Y/%m/%d'),
+                             {
+                                 class: 'datepicker datepicker-to form-control',
+                                 required: true
+                             }
+          %>
+        </div>
+        <%= submit_tag 'Search', class: 'btn btn-success' %>
+      </div>
+    </div>
+<% end %>
+
+<%= link_to 'Download CSV', params.merge({format: 'csv'}) %>
+
+<table class="table">
+  <tr>
+    <th>Products Name</th>
+    <th>Count on Hand</th>
+    <th>Sold</th>
+    <th>Price</th>
+    <th>Origin Price</th>
+    <th>Sku</th>
+    <th>Available On</th>
+  </tr>
+
+  <% @report.stock_movements.each_with_index do |move, index| %>
+      <tr>
+        <td><%= move.product_name %></td>
+        <td><%= move.count_on_hand %></td>
+        <td><%= move.sold %></td>
+        <td><%= move.price %></td>
+        <td><%= move.origin_price %></td>
+        <td><%= move.sku %></td>
+        <td><%= move.available_on %></td>
+      </tr>
+  <% end %>
+
+
+</table>
+

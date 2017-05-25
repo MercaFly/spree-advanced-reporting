@@ -1,5 +1,6 @@
 en:
   adv_report:
+    stock: "Stock"
     revenue: "Revenue"
     units: "Units"
     profit: "Profit"

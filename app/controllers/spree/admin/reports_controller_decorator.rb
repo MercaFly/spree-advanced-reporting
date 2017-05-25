@@ -10,6 +10,16 @@ Spree::Admin::ReportsController.class_eval do
     end
   end
 
+  def stock
+    @line = nil
+    @active = false
+    @report = Spree::StockReport.new(params)
+    respond_to do |format|
+      format.html { render template: 'spree/admin/reports/stock_report' }
+      format.csv { render text: @report.to_csv }
+    end
+  end
+
   def revenue
     @report = Spree::AdvancedReport::IncrementReport::Revenue.new(params)
     base_report_render('revenue')
@@ -74,6 +84,7 @@ Spree::Admin::ReportsController.class_eval do
 
   def actions
     [
+      :stock,
       :daily_details,
       :profit,
       :revenue,

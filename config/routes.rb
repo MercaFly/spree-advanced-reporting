@@ -3,6 +3,7 @@ Spree::Core::Engine.add_routes do
 
     resources :reports, only: [] do
       collection do
+        get :stock
         get :revenue
         get :count
         get :units

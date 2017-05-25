@@ -64,7 +64,7 @@
           <% end %>
             var chart_<%= type.to_s %> = new google.visualization.ColumnChart(document.getElementById('<%= type.to_s %>_chart'));
             chart_<%= type.to_s %>.draw(data_<%= type.to_s %>, {
-                width: 700,
+                width: 1000,
                 height: 400,
                 legend: 'none',
                 hAxis: { slantedText: true, slantedTextAngle: 30 },
