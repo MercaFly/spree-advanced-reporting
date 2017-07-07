@@ -15,6 +15,7 @@ Spree::Core::Engine.add_routes do
         get :geo_profit
         get :daily_details
         get :order_details
+        get :device_scale
       end
     end
   end
