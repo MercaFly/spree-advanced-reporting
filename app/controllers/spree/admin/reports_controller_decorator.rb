@@ -80,6 +80,11 @@ Spree::Admin::ReportsController.class_eval do
     end
   end
 
+  def device_scale
+    @report = Spree::AdvancedReport::ScaleReport::DeviceScale.new(params)
+    scale_report_render('device')
+  end
+
   private
 
   def actions
@@ -94,7 +99,8 @@ Spree::Admin::ReportsController.class_eval do
       :geo_revenue,
       :geo_units,
       :count,
-      :order_details
+      :order_details,
+      :device_scale
     ]
   end
 
@@ -111,6 +117,13 @@ Spree::Admin::ReportsController.class_eval do
     Spree::Admin::ReportsController::available_reports.merge!(advanced_reports)
     I18n.locale = Rails.application.config.i18n.default_locale
     I18n.reload!
+  end
+
+  def scale_report_render(filename)
+    respond_to do |format|
+      format.html { render template: 'spree/admin/reports/scale_base' }
+    end
+
   end
 
   def geo_report_render(filename)
