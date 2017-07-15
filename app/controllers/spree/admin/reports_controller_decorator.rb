@@ -20,6 +20,16 @@ Spree::Admin::ReportsController.class_eval do
     end
   end
 
+  def no_image
+    @report = Spree::ProductReport::NoImage.new(params)
+    product_report_render('no_image')
+  end
+
+  def no_description
+    @report = Spree::ProductReport::NoDescription.new(params)
+    product_report_render('no_description')
+  end
+
   def revenue
     @report = Spree::AdvancedReport::IncrementReport::Revenue.new(params)
     base_report_render('revenue')
@@ -90,6 +100,8 @@ Spree::Admin::ReportsController.class_eval do
   def actions
     [
       :stock,
+      :no_image,
+      :no_description,
       :daily_details,
       :profit,
       :revenue,
@@ -124,6 +136,15 @@ Spree::Admin::ReportsController.class_eval do
       format.html { render template: 'spree/admin/reports/scale_base' }
     end
 
+  end
+
+  def product_report_render(filename)
+    respond_to do |format|
+      format.html { render template: 'spree/admin/reports/product_base' }
+      format.csv do
+        send_data @report.to_csv
+      end
+    end
   end
 
   def geo_report_render(filename)

@@ -1,5 +1,7 @@
 en:
   adv_report:
+    no_image: "No image"
+    no_description: "No Description"
     stock: "Stock"
     revenue: "Revenue"
     units: "Units"

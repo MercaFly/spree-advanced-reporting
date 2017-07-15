@@ -1,0 +1,28 @@
+<% content_for :page_title do %>
+  <%= Spree.t('adv_report.' + @report.name.downcase) %> &middot; <small><%= @report.description %></small>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= link_to_with_icon 'arrow-left', Spree.t(:back_to_reports_list), spree.admin_reports_url, class: 'button' %>
+<% end %>
+
+<% content_for :sidebar_title do %>
+  <% Spree.t(:report_details) %>
+<% end %>
+<%= link_to 'Download CSV', params.merge({format: 'csv'}) %>
+
+
+<table class="table">
+  <tr>
+    <th>Products Name</th>
+
+  </tr>
+
+  <% @report.products.each_with_index do |product, index| %>
+    <tr>
+      <td><%= product.name %></td>
+    </tr>
+  <% end %>
+
+
+</table>
