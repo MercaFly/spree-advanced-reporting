@@ -31,7 +31,7 @@ class Spree::AdvancedReport::IncrementReport::Revenue < Spree::AdvancedReport::I
         rev = order.line_items.select { |li| li.product && li.product.taxons.include?(self.taxon) }.inject(0) { |a, b| a += b.quantity * b.price }
       end
       rev = 0 if !self.product_in_taxon
-      INCREMENTS.each { |type| data[type][date[type]][:value] += (rev + rand(300..500) ) }
+      INCREMENTS.each { |type| data[type][date[type]][:value] += rev }
       self.total += rev
     end
 
