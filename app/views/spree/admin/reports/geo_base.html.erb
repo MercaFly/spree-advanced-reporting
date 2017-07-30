@@ -54,7 +54,6 @@
           var options_<%= type.to_s %> = { 'width' : '800px', 'height' : '500px' };
         <% if type == :state %>
           options_<%= type.to_s %>['region'] = 'ES';
-          options_<%= type.to_s %>['resolution'] = 'provinces';
         <% end %>
 
         var <%= type.to_s %>_container = document.getElementById('<%= type.to_s %>_canvas');
