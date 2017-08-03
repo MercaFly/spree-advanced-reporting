@@ -32,7 +32,9 @@ class Spree::AdvancedReport::IncrementReport::Revenue < Spree::AdvancedReport::I
       end
       rev = 0 if !self.product_in_taxon
       INCREMENTS.each { |type| data[type][date[type]][:value] += rev }
+
       self.total += rev
+
     end
 
     generate_ruport_data

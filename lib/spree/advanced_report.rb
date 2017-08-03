@@ -130,6 +130,26 @@ module Spree
       self.product_in_taxon ? profit : 0
     end
 
+    def cost(order)
+      cost = order.line_items.inject(0) do |cost, li|
+        variant = unscoped_variant(li.variant_id)
+        cost += variant.cost_price.to_f * li.quantity
+      end
+
+      if !self.product.nil? && product_in_taxon
+        cost = order.line_items.select { |li| li.product == self.product }.inject(0) do |cost, li|
+          variant = unscoped_variant(li.variant_id)
+          cost + variant.cost_price.to_f * li.quantity
+        end
+      elsif !self.taxon.nil?
+        cost = order.line_items.select { |li| li.product && li.product.taxons.include?(self.taxon) }.inject(0) do |cost, li|
+          variant = unscoped_variant(li.variant_id)
+          cost + variant.cost_price.to_f * li.quantity
+        end
+      end
+      self.product_in_taxon ? cost : 0
+    end
+
     def units(order)
       units = order.line_items.sum(:quantity)
       if !self.product.nil? && product_in_taxon

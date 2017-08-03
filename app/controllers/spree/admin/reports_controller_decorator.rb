@@ -35,6 +35,16 @@ Spree::Admin::ReportsController.class_eval do
     base_report_render('revenue')
   end
 
+  def total
+    @report = Spree::AdvancedReport::IncrementReport::Total.new(params)
+    base_report_render('total')
+  end
+
+  def cost
+    @report = Spree::AdvancedReport::IncrementReport::Cost.new(params)
+    base_report_render('cost')
+  end
+
   def units
     @report = Spree::AdvancedReport::IncrementReport::Units.new(params)
     base_report_render('units')
@@ -105,6 +115,8 @@ Spree::Admin::ReportsController.class_eval do
       :daily_details,
       :profit,
       :revenue,
+      :total,
+      :cost,
       :units,
       :top_products,
       :top_customers,

@@ -7,6 +7,8 @@ Spree::Core::Engine.add_routes do
         get :no_description
         get :stock
         get :revenue
+        get :total
+        get :cost
         get :count
         get :units
         get :profit
