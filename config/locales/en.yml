@@ -16,3 +16,4 @@ en:
     sales_total: 'Sales Total'
     daily_details: 'Daily Sales Detail'
     order_details: "Order Details"
+    device_scale: "Device Scale"
