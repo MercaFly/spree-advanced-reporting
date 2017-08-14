@@ -24,7 +24,7 @@ module Spree
     end
 
     def to_csv
-      stock_movements = self.stock_movements.collect(&:values)
+      sales = self.sales.collect(&:values)
       CSV.generate do |csv|
         csv << [
             'product_name',
@@ -36,7 +36,7 @@ module Spree
             'sold_days',
             'no_stock_days'
         ]
-        stock_movements.each do |li|
+        sales.each do |li|
           csv << li
         end
       end
@@ -49,8 +49,8 @@ module Spree
         :cost_price,
         :price,
         :origin_price,
-        :sku,
-        :available_on
+        :sold_days,
+        :no_stock_days
     )
 
   end

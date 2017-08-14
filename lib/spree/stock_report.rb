@@ -6,14 +6,19 @@ module Spree
     def initialize(report_params)
       #{advanced_reporting"=>{"taxon_id"=>"2001", "product_id"=>""}, "search"=>{"completed_at_gt"=>"2017/08/01", "completed_at_lt"=>"2017/08/02"}, "button"=>"", "controller"=>"spree/admin/reports", "action"=>"stock"}
 
-      if report_params[:search][:completed_at_gt] == '' || report_params[:search][:completed_at_lt] == ''
+      if !report_params[:search].nil?
+        if report_params[:search][:completed_at_gt] == '' || report_params[:search][:completed_at_lt] == ''
+          @begin_date = Time.now - 1.month
+          @end_date = Time.now
+        else
+          @begin_date = report_params[:search][:completed_at_gt]
+          @end_date = report_params[:search][:completed_at_lt]
+        end
+      else
         @begin_date = Time.now - 1.month
         @end_date = Time.now
-      else
-        @begin_date = report_params[:search][:completed_at_gt]
-        @end_date = report_params[:search][:completed_at_lt]
       end
-
+      
       self.product_in_taxon = true
       if report_params[:advanced_reporting]
         if report_params[:advanced_reporting][:taxon_id] && report_params[:advanced_reporting][:taxon_id] != ''
