@@ -6,6 +6,7 @@ Spree::Core::Engine.add_routes do
         get :no_image
         get :no_description
         get :stock
+        get :product_sales
         get :revenue
         get :total
         get :cost

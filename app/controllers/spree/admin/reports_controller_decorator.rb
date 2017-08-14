@@ -20,6 +20,14 @@ Spree::Admin::ReportsController.class_eval do
     end
   end
 
+  def product_sales
+    @report = Spree::ProductSalesReport.new
+    respond_to do |format|
+      format.html { render template: 'spree/admin/reports/product_sales_report' }
+      format.csv { render text: @report.to_csv }
+    end
+  end
+
   def no_image
     @report = Spree::ProductReport::NoImage.new(params)
     product_report_render('no_image')
@@ -113,6 +121,7 @@ Spree::Admin::ReportsController.class_eval do
       :no_image,
       :no_description,
       :daily_details,
+      :product_sales,
       :profit,
       :revenue,
       :total,

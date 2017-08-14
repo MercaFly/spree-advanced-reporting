@@ -2,7 +2,6 @@
     Sale Details
 <% end %>
 
-<%= render :partial => 'spree/admin/reports/advanced_report_criteria', :locals => {} %>
 
 <%= link_to 'Download CSV', params.merge({format: 'csv'}) %>
 
@@ -14,11 +13,11 @@
     <th>Cost Price</th>
     <th>Price</th>
     <th>Origin Price</th>
-    <th>Sku</th>
-    <th>Available On</th>
+    <th>Sold Days</th>
+    <th>No Stock Days</th>
   </tr>
 
-  <% @report.stock_movements.each_with_index do |move, index| %>
+  <% @report.sales.each_with_index do |move, index| %>
       <tr>
         <td><%= move.product_name %></td>
         <td><%= move.count_on_hand %></td>
