@@ -20,6 +20,14 @@ Spree::Admin::ReportsController.class_eval do
     end
   end
 
+  def user_register
+    @report = Spree::UserAdvancedReport.new(params)
+    respond_to do |format|
+      format.html { render template: 'spree/admin/reports/user_base' }
+      format.csv { render text: @report.to_csv }
+    end
+  end
+
   def product_sales
     @report = Spree::ProductSalesReport.new
     respond_to do |format|
@@ -70,7 +78,7 @@ Spree::Admin::ReportsController.class_eval do
 
   def count
     @report = Spree::AdvancedReport::IncrementReport::Count.new(params)
-    base_report_render('profit')
+    base_report_render('count')
   end
 
   def top_products
@@ -122,6 +130,7 @@ Spree::Admin::ReportsController.class_eval do
       :no_description,
       :daily_details,
       :product_sales,
+      :user_register,
       :profit,
       :revenue,
       :total,

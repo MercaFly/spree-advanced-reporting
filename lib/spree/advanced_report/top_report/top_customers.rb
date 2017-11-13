@@ -13,7 +13,7 @@ class Spree::AdvancedReport::TopReport::TopCustomers < Spree::AdvancedReport::To
     orders.each do |order|
       if order.user
         data[order.user.id] ||= {
-          :email => order.user.display_email_or_email,
+          :email => order.user.display_propose_name,
           :revenue => 0,
           :units => 0
         }

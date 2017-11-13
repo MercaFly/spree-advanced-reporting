@@ -18,7 +18,7 @@ module Spree
         @begin_date = Time.now - 1.month
         @end_date = Time.now
       end
-      
+
       self.product_in_taxon = true
       if report_params[:advanced_reporting]
         if report_params[:advanced_reporting][:taxon_id] && report_params[:advanced_reporting][:taxon_id] != ''
