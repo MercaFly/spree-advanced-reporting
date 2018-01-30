@@ -57,7 +57,7 @@ module Spree
             move.try(:sum_quantity),
             move.stock_item.try(:variant).try(:cost_price),
             move.stock_item.try(:variant).try(:prices).try(:first).try(:amount),
-            move.stock_item.try(:variant).try(:product).try(:taxons).pluck(:name),
+            move.stock_item.try(:variant).try(:product).try(:taxons).try(:pluck, :name),
             move.stock_item.try(:variant).try(:origin_prices).try(:first).try(:amount),
             move.stock_item.try(:variant).try(:sku),
             move.stock_item.try(:variant).try(:product).try(:available_on),
