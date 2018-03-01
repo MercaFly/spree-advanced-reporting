@@ -1,0 +1,35 @@
+zh-CN:
+  adv_report:
+    dashboard: 总览
+    daily: 日
+    weekly: 周
+    monthly: 月
+    quarterly: 季
+    yearly: 年
+    revenue: "收入"
+    units: "商品售出数量"
+    units_sold: "商品售出数量"
+    profit: "利润"
+    count: "订单数"
+    order_count: "订单數"
+    top_products: "销售最佳商品"
+    top_customers: "最大客戶"
+    submit: "提交"
+    geo_revenue: "收入(依照地区区分)"
+    geo_units: "出货商品數量(依照地区区分)"
+    geo_profit: "利潤(依照地区区分)"
+    advanced_reports: 报表条件设定
+    top_products_by_revenue: 营业额最高商品
+    top_customers_by_revenue: 营业额最高客戶
+    last_10_orders: 最新10笔订单
+    items_count: 商品数量
+    stock: 库存
+    order_details: 订单详情
+    device_scale: 设备分布
+    cost: 成本
+    user_register: 注册用户
+    daily_details: 日常销售
+    no_description: 无描述
+    no_image: 无图片
+    product_sales: 产品销售情况
+    total: 销售总额
