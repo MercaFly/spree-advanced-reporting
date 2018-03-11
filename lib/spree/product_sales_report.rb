@@ -11,6 +11,8 @@ module Spree
       @product_sales.each do |s|
         sales << ReportLine.new(
           s.try(:product).try(:name),
+          s.try(:taxon),
+          s.try(:brand),
           s.try(:count_on_hand),
           s.try(:sold),
           s.try(:cost_price),
@@ -28,6 +30,8 @@ module Spree
       CSV.generate do |csv|
         csv << [
             'product_name',
+            'taxon',
+            'brand',
             'count_on_hand',
             'sold',
             'cost_price',
@@ -44,6 +48,8 @@ module Spree
 
     ReportLine = Struct.new(
         :product_name,
+        :taxon,
+        :brand,
         :count_on_hand,
         :sold,
         :cost_price,
