@@ -1,4 +1,4 @@
-class Spree::AdvancedReport::IncrementReport::Cost < Spree::AdvancedReport::IncrementReport
+class Spree::AdvancedReport::IncrementReport::OrderCost < Spree::AdvancedReport::IncrementReport
   def name
     "Cost"
   end
@@ -13,6 +13,7 @@ class Spree::AdvancedReport::IncrementReport::Cost < Spree::AdvancedReport::Incr
 
   def initialize(params)
     super(params)
+
     self.total = 0
     self.orders.each do |order|
       date = {}
@@ -30,10 +31,10 @@ class Spree::AdvancedReport::IncrementReport::Cost < Spree::AdvancedReport::Incr
 
     generate_ruport_data
 
-    INCREMENTS.each { |type| ruportdata[type].replace_column("Cost") { |r| "$%0.2f" % r["Cost"] } }
+    INCREMENTS.each { |type| ruportdata[type].replace_column("OrderCost") { |r| "€%0.2f" % r["OrderCost"] } }
   end
 
   def format_total
-    '$' + ((self.total*100).round.to_f / 100).to_s
+    '€' + ((self.total*100).round.to_f / 100).to_s
   end
 end

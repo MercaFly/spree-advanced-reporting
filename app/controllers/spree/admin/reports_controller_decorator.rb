@@ -1,3 +1,5 @@
+
+
 Spree::Admin::ReportsController.class_eval do
   before_filter :add_actions_to_available_reports
   before_filter :basic_report_setup, actions: :actions
@@ -57,7 +59,7 @@ Spree::Admin::ReportsController.class_eval do
   end
 
   def cost
-    @report = Spree::AdvancedReport::IncrementReport::Cost.new(params)
+    @report = ::Spree::AdvancedReport::IncrementReport::OrderCost.new(params)
     base_report_render('cost')
   end
 
