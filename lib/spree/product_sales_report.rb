@@ -9,8 +9,10 @@ module Spree
       @product_sales = Spree::ProductSale.includes(:product).order('sold desc')
 
       @product_sales.each do |s|
+        @variants = Spree::Variant.find_by(:product_id => s.try(:id))
         sales << ReportLine.new(
           s.try(:product).try(:name),
+          @variants.try(:sku),
           s.try(:taxon),
           s.try(:brand),
           s.try(:count_on_hand),
@@ -30,6 +32,7 @@ module Spree
       CSV.generate do |csv|
         csv << [
             'product_name',
+            'sku',
             'taxon',
             'brand',
             'count_on_hand',
@@ -48,6 +51,7 @@ module Spree
 
     ReportLine = Struct.new(
         :product_name,
+        :sku,
         :taxon,
         :brand,
         :count_on_hand,

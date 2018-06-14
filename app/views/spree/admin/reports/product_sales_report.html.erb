@@ -8,6 +8,7 @@
 <table class="table">
   <tr>
     <th>Products Name</th>
+    <th>SKU</th>
     <th>Count on Hand</th>
     <th>Sold</th>
     <th>Cost Price</th>
@@ -22,6 +23,7 @@
   <% @report.sales.each_with_index do |move, index| %>
       <tr>
         <td><%= move.product_name %></td>
+        <td><%= move.sku %></td>
         <td><%= move.count_on_hand %></td>
         <td><%= move.sold %></td>
         <td><%= move.cost_price %></td>
