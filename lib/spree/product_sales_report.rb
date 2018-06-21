@@ -9,7 +9,7 @@ module Spree
       @product_sales = Spree::ProductSale.includes(:product).order('sold desc')
 
       @product_sales.each do |s|
-        @variants = Spree::Variant.find_by(:product_id => s.try(:id))
+        @variants = Spree::Variant.find_by(:product_id => s.try(:product_id))
         sales << ReportLine.new(
           s.try(:product).try(:name),
           @variants.try(:sku),
