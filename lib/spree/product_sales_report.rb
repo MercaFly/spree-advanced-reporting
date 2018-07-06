@@ -13,6 +13,7 @@ module Spree
         sales << ReportLine.new(
           s.try(:product).try(:name),
           @variants.try(:sku),
+          @variants.try(:weight),
           s.try(:taxon),
           s.try(:brand),
           s.try(:count_on_hand),
@@ -33,6 +34,7 @@ module Spree
         csv << [
             'product_name',
             'sku',
+            'weight',
             'taxon',
             'brand',
             'count_on_hand',
@@ -52,6 +54,7 @@ module Spree
     ReportLine = Struct.new(
         :product_name,
         :sku,
+        :weight,
         :taxon,
         :brand,
         :count_on_hand,
